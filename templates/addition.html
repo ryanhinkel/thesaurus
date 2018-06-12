@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form method='GET'>
+    <input value='{{ a }}' id='a' name='a' type='text' />
+    <span> + </span>
+    <input value='{{ b }}' id='b' name='b' type='text' />
+    <input type='submit' value='=' />
+  </form>
+  <ul>
+    {% for result in results %}
+      <li>
+        <span>
+          <a href='/addition?a={{ result }}&b={{ b }}'>A</a>
+          <a href='/addition?a={{ a }}&b={{ result }}'>B</a>
+        </span>
+        {{ result }}
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

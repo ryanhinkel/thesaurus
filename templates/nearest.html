@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method='GET'>
+  <input value='{{ word }}' id='word' name='word' type='text' />
+  <input type='submit' value='Find' />
+</form>
+<ul>
+  {% for result in results %}
+    <li><a href='/?word={{ result }}'>{{ result }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
