@@ -20,7 +20,7 @@ for line in lines:
     word_vectors[word] = vec
 
 # Create a random binary hash with 10 bits
-rbp = RandomBinaryProjections('rbp', 10)
+rbp = RandomBinaryProjections('rbp', 2)
 
 # Create engine with pipeline configuration
 cosine = Engine(dimension, lshashes=[rbp])
