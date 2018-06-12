@@ -1,31 +1,28 @@
 from pyramid.view import view_config
 
-import thesaurus
+from thesaurus import word_math
 
 
 @view_config(
-    route_name='analogy',
-    renderer='analogy.html',
+    route_name='addition',
+    renderer='addition.html',
 )
-def analogy(request):
-    c = request.GET.get('c')
+def addition(request):
     a = request.GET.get('a')
     b = request.GET.get('b')
     error = None
 
     try:
-        results = thesaurus.analogy(a, b, c)
+        results = word_math.addition(a, b)
     except KeyError:
         a = 'nothing'
         b = 'something'
-        c = 'everything'
         results = []
-        error = 'The word was not found in the thesaurus'
+        error = 'Some words were not found in the thesaurus'
 
     return {
         'a': a,
         'b': b,
-        'c': c,
         'results': results,
         'error': error,
     }

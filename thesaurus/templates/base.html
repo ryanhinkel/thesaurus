@@ -10,6 +10,7 @@
     <title>{% block title %}{% endblock %}{% if self.title() %} · {% endif %}{{ request.registry.settings['site.name'] }}</title>
     <meta name="description" content="{% block description %}{{ _("ColorReader Admin App") }}{% endblock %}">
 
+    <link rel="stylesheet" href="{{ request.static_path('thesaurus:static/css/thesaurus.css') }}">
   </head>
   <body>
 

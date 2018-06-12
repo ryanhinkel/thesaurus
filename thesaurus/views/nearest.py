@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 
-import thesaurus
+from thesaurus import word_math
 
 
 @view_config(
@@ -12,7 +12,7 @@ def nearest(request):
     error = None
 
     try:
-        results = thesaurus.nearest(word)
+        results = word_math.nearest(word)
     except KeyError:
         word = 'nothing'
         results = []
