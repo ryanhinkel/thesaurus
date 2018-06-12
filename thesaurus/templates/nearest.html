@@ -6,7 +6,12 @@
   <input value='{{ word }}' id='word' name='word' type='text' />
   <input type='submit' value='Find' />
 </form>
-<ul>
+
+{% if error %}
+  <div class='error'>{{ error }}</div>
+{% endif %}
+
+<ul class='results'>
   {% for result in results %}
     <li><a href='/?word={{ result }}'>{{ result }}</a></li>
   {% endfor %}

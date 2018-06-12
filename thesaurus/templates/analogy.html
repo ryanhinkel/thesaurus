@@ -2,31 +2,31 @@
 
 {% block content %}
 
-  <form method='GET'>
-    <input value='{{ a }}' id='a' name='a' type='text' />
-    <span>is to</span>
-    <input value='{{ b }}' id='b' name='b' type='text' />
-    <span>as</span>
-    <input value='{{ c }}' id='c' name='c' type='text' />
-    <span>is to</span>
-    <input type='submit' value='????' />
-  </form>
+<form method='GET'>
+  <input value='{{ a }}' id='a' name='a' type='text' />
+  <span>is to</span>
+  <input value='{{ b }}' id='b' name='b' type='text' />
+  <span>as</span>
+  <input value='{{ c }}' id='c' name='c' type='text' />
+  <span>is to</span>
+  <input type='submit' value='????' />
+</form>
 
-  {% if error %}
-    <div class='error'>{{ error }}</div>
-  {% endif %}
+{% if error %}
+  <div class='error'>{{ error }}</div>
+{% endif %}
 
-  <ul>
-    {% for result in results %}
-      <li>
-        <span>
-          <a href='/analogy?a={{ result }}&b={{ b }}&c={{ c }}'>A</a>:
-          <a href='/analogy?a={{ a }}&b={{ result }}&c={{ c }}'>B</a>::
-          <a href='/analogy?a={{ a }}&b={{ b }}&c={{ result }}'>C</a>:
-        </span>
-        {{ result }}
-      </li>
-    {% endfor %}
-  </ul>
+<ul class='results'>
+  {% for result in results %}
+    <li>
+      <span class='swap-word-buttons'>
+        <a href='/analogy?a={{ result }}&b={{ b }}&c={{ c }}'>A</a>:
+        <a href='/analogy?a={{ a }}&b={{ result }}&c={{ c }}'>B</a>::
+        <a href='/analogy?a={{ a }}&b={{ b }}&c={{ result }}'>C</a>:
+      </span>
+      {{ result }}
+    </li>
+  {% endfor %}
+</ul>
 
 {% endblock %}
