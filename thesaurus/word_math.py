@@ -2,7 +2,6 @@ import numpy
 
 from nearpy import Engine
 from nearpy.hashes import RandomBinaryProjections
-from nearpy.distances import EuclideanDistance
 
 array = numpy.array
 
@@ -24,11 +23,9 @@ rbp = RandomBinaryProjections('rbp', 2)
 
 # Create engine with pipeline configuration
 cosine = Engine(dimension, lshashes=[rbp])
-euclid = Engine(dimension, lshashes=[rbp], distance=EuclideanDistance())
 
 for word, vec in word_vectors.items():
     cosine.store_vector(array(vec), word)
-    euclid.store_vector(array(vec), word)
 
 print('ready')
 
