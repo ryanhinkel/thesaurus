@@ -1,11 +1,12 @@
-FROM python:3.6.5-alpine3.7
+FROM python:3.6.5-slim
 
 ENV HOME=/usr/src/app
 WORKDIR $HOME
 
 COPY . $HOME
 
-RUN apk --no-cache add build-base
+RUN apt-get update && apt-get -y install build-essential && rm -Rf /var/lib/apt/lists/*
+
 RUN pip install -r requirements.txt
 
 EXPOSE 6543
