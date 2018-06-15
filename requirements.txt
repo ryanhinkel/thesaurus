@@ -1,3 +1,5 @@
+numpy
+scipy
 NearPy
 pyramid
 pyramid_jinja2
