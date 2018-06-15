@@ -26,7 +26,8 @@ push:
 	docker push $(IMAGE):latest
 
 rollout:
-	kubectl apply -f deploy.yml
+	gcloud container images describe $(IMAGE):$(TAG)
+	cat deploy.yml | sed 's/TAG/$(TAG)/g' | kubectl apply -f -
 	kubectl rollout status deployment/thesaurus-deployment
 
 deploy: build push rollout
