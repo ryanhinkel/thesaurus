@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: thesaurus-deployment
+  labels:
+    app: thesaurus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thesaurus
+  template:
+    metadata:
+      labels:
+        app: thesaurus
+    spec:
+      containers:
+      - name: thesaurus
+        image: gcr.io/thesaurus-207318/thesaurus:TAG
+        ports:
+        - containerPort: 6543
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: thesaurus-service
+  labels:
+    app: thesaurus
+spec:
+  type: LoadBalancer
+  selector:
+    app: thesaurus
+  ports:
+  - port: 80
+    targetPort: 6543
