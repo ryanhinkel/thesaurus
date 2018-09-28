@@ -15,11 +15,16 @@ if __name__ == '__main__':
         config.add_jinja2_renderer('.html')
         config.add_jinja2_search_path("thesaurus:templates", name=".html")
 
+        # Thesaurus
         config.add_route('nearest', '/')
         config.add_route('analogy', '/analogy')
         config.add_route('addition', '/addition')
         config.add_route('average', '/average')
         config.add_route('subtraction', '/subtraction')
+
+        # Codenames
+        config.add_route('codewords', '/codewords')
+        config.add_route('clue', '/clue')
 
         # Serve our static files
         prevent_http_cache = config.get_settings().get(

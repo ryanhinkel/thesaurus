@@ -1,1 +1,4 @@
 env
+thesaurus/static/
+.cache
+node_modules

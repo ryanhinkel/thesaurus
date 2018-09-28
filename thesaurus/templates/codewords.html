@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id='app'></div>
+<script type='text/javascript'>
+  const data = {{ {
+    "words": words,
+    "my_spies": my_spies,
+    "their_spies": their_spies,
+    "assassin": assassin
+  } |tojson }}
+</script>
+<script type="text/javascript" src="{{ request.static_path('thesaurus:static/index.js') }}"></script>
+
+<!-- {% set width = 5 %} -->
+<!--  -->
+<!--   {% for word in words %} -->
+<!--     {% set index = loop.index %} -->
+<!--     {% if index == assassin %} -->
+<!--       <div class='white bg&#45;black'>{{ word }}</div> -->
+<!--     {% elif index in my_spies %} -->
+<!--       <div class='bg&#45;blue'>{{ word }}</div> -->
+<!--     {% elif index in their_spies %} -->
+<!--       <div class='bg&#45;red'>{{ word }}</div> -->
+<!--     {% else %} -->
+<!--       <div class='bg&#45;light&#45;yellow'>{{ word }}</div> -->
+<!--     {% endif %} -->
+<!-- {% endfor %} -->
+<!--  -->
+<!-- <form> -->
+<!--   {% for word in words %} -->
+<!--     {% set index = loop.index %} -->
+<!--     {% if index == assassin %} -->
+<!--       <input hidden name='assassin' value="{{ word }}"> -->
+<!--     {% elif index in my_spies %} -->
+<!--       <input hidden name='my_spies' value="{{ word }}"> -->
+<!--     {% elif index in their_spies %} -->
+<!--       <input hidden name='their_spies' value="{{ word }}"> -->
+<!--     {% endif %} -->
+<!--   {% endfor %} -->
+<!--   <button>Do a thing</button> -->
+<!-- </form> -->
+<!--  -->
+{% endblock %}

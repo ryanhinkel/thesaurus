@@ -28,11 +28,11 @@ def subtraction(a, b):
     return query(query_array)
 
 
-def nearest(word):
-    query_array = array(word_vectors[word])
-    return query(query_array)
-
-
 def average(words):
     vectors = [array(word_vectors[word]) for word in words]
     return query(sum(vectors) / len(vectors))
+
+
+def nearest(word):
+    query_array = array(word_vectors[word])
+    return query(query_array)
