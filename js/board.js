@@ -6,18 +6,18 @@ export default class Board extends PureComponent {
     const { picked, my_spies, their_spies, assassin, words } = this.props
 
     if (!picked.includes(word)) {
-      return 'bg-light-gray'
+      return 'bg-light-gray black'
     }
 
     const index = words.indexOf(word)
     if (my_spies.includes(index)) {
-      return 'bg-red white'
+      return 'bg-mid-gray dark-red'
     } else if (their_spies.includes(index)) {
-      return 'bg-blue white'
+      return 'bg-mid-gray light-blue'
     } else if (assassin === index) {
-      return 'bg-black white'
+      return 'bg-white white'
     } else {
-      return 'bg-yellow black'
+      return 'bg-near-white green'
     }
   }
 
@@ -26,7 +26,7 @@ export default class Board extends PureComponent {
 
     const rows = splitEvery(5, words)
     return (
-      <div className='ma2 ba--white-20 f2'>
+      <div className='avenir ma2 ba--white-20 f2'>
         { rows.map((row) => {
           return (
             <div key={row.toString()}>
@@ -36,7 +36,7 @@ export default class Board extends PureComponent {
                   <div
                     onClick={() => pickWord(word)}
                     key={word}
-                    className={`dib pa2 w5 h3 ${ cardStyles } ma1`}
+                    className={`dib pa2 pv4 w5 h4 tc ${ cardStyles } ma1`}
                   >{ word }</div>
                 )
               }) }
