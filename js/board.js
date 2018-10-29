@@ -1,23 +1,29 @@
 import React, { PureComponent } from 'react'
 import { splitEvery } from 'ramda'
 
+const styles = {
+  unknown: 'gray',
+  ally: 'bg-dark-gray dark-red',
+  enemy: 'bg-light-blue light-blue b--light-blue',
+  assassin: 'white',
+  civilian: 'b--green green',
+}
+
 export default class Board extends PureComponent {
   getCardStyles = (word) => {
     const { picked, my_spies, their_spies, assassin, words } = this.props
+    const index = words.indexOf(word)
 
     if (!picked.includes(word)) {
-      return 'bg-light-gray black'
-    }
-
-    const index = words.indexOf(word)
-    if (my_spies.includes(index)) {
-      return 'bg-mid-gray dark-red'
+      return styles['unknown']
+    } else if (my_spies.includes(index)) {
+      return styles['ally']
     } else if (their_spies.includes(index)) {
-      return 'bg-mid-gray light-blue'
+      return styles['enemy']
     } else if (assassin === index) {
-      return 'bg-white white'
+      return styles['assassin']
     } else {
-      return 'bg-near-white green'
+      return styles['civilian']
     }
   }
 
@@ -26,7 +32,7 @@ export default class Board extends PureComponent {
 
     const rows = splitEvery(5, words)
     return (
-      <div className='avenir ma2 ba--white-20 f2'>
+      <div className='avenir pa1 ba--white-20 f2'>
         { rows.map((row) => {
           return (
             <div key={row.toString()}>
@@ -36,7 +42,7 @@ export default class Board extends PureComponent {
                   <div
                     onClick={() => pickWord(word)}
                     key={word}
-                    className={`dib pa2 pv4 w5 h4 tc ${ cardStyles } ma1`}
+                    className={`dib pa2 pv4 w5 h4 tc ba ${ cardStyles } ma1`}
                   >{ word }</div>
                 )
               }) }

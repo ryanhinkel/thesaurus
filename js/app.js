@@ -28,7 +28,11 @@ export default class App extends PureComponent {
 
   getClue = () => {
     const { data: { my_spies, their_spies, assassin, words } } = this.props
-    const { picked } = this.state
+    const { picked, closeTo } = this.state
+
+    if (closeTo > 0) {
+      return null
+    }
 
     const bad_words = getWords(words, their_spies, picked)
     const good_words = getWords(words, my_spies, picked)
@@ -38,15 +42,25 @@ export default class App extends PureComponent {
       .then((response) => {
         const { word: clue, close_to: closeTo, allies } = response.data
         console.log(clue, closeTo, allies.toString())
-        this.setState({ clue, closeTo })
+        this.setState({ clue, closeTo, allies })
       })
   }
 
   pickWord = (word) => {
     this.setState(
-      state => ({
-        picked: state.picked.concat(word)
-      }),
+      state => {
+        const picked = state.picked.concat(word)
+        const wordLower = word.toLowerCase()
+        if (state.allies.includes(wordLower)) {
+          return {
+            closeTo: state.closeTo - 1,
+            allies: state.allies.filter(w => w !== word),
+            picked,
+          }
+        } else {
+          return { picked }
+        }
+      },
       this.getClue
     )
   }
@@ -55,9 +69,9 @@ export default class App extends PureComponent {
     const { data } = this.props
     const { picked, clue, closeTo } = this.state
     return (
-      <div className='bg--dark-gray'>
+      <div className='bg-near-black h-100 w-100'>
         <Board picked={picked} pickWord={this.pickWord} {...data} />
-        <div className='ma4 tc f2 courier dark-red'>
+        <div className='ma4 tc f2 courier green'>
           { clue
             ? <span>Clue: { clue } for { closeTo }</span>
             : null }
