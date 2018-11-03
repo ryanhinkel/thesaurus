@@ -42,8 +42,10 @@ export default class Board extends PureComponent {
                   <div
                     onClick={() => pickWord(word)}
                     key={word}
-                    className={`dib pa2 pv4 w5 h4 tc ba ${ cardStyles } ma1`}
-                  >{ word }</div>
+                    className={`dib w-20`}
+                  >
+                    <div className={`ba ph2 pv4 h4 tc ${ cardStyles } ma1`}>{ word }</div>
+                  </div>
                 )
               }) }
             </div>
