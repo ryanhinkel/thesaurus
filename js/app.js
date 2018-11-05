@@ -12,11 +12,26 @@ const getWords = (words, indices, excludeWords) => {
   )
 }
 
+class GameMessage extends PureComponent {
+  render() {
+    const { message, className } = this.props
+    const layoutStyles = 'absolute top-2 left-2 right-2 bottom-2'
+    const fontStyles = 'courier f1 tc '
+
+    return (
+      <div className={`game-message pa2 ${layoutStyles} ${ fontStyles } ${ className }`}>
+        <div className={`ba bw2 h-100 w-100 pa6 ${ className }`}>{ message }</div>
+      </div>
+    )
+  }
+}
+
 export default class App extends PureComponent {
   constructor () {
     super()
     this.state = {
       picked: [],
+      allies: [],
       clue: '',
       closeTo: 0,
     }
@@ -65,17 +80,43 @@ export default class App extends PureComponent {
     )
   }
 
+  getGameProgress = () => {
+    const { data: { my_spies, their_spies, assassin, words } } = this.props
+    const { picked } = this.state
+
+    const pickedIndexes = picked.map(word => words.indexOf(word))
+
+    const securityBreaches = their_spies.filter(spy => pickedIndexes.includes(spy)).length
+    const gameLost = pickedIndexes.includes(assassin)
+    const gameWon = my_spies.filter(spy => pickedIndexes.includes(spy)).length === my_spies.length
+
+    return { securityBreaches, gameLost, gameWon }
+  }
+
   render () {
     const { data } = this.props
     const { picked, clue, closeTo } = this.state
+    const { securityBreaches, gameLost, gameWon } = this.getGameProgress()
+
     return (
-      <div className='bg-near-black h-100 w-100'>
+      <div className='bg-near-black h-100 w-100 pa1'>
         <Board picked={picked} pickWord={this.pickWord} {...data} />
         <div className='ma4 tc f2 courier green'>
           { clue
             ? <span>Clue: { clue } for { closeTo }</span>
             : null }
         </div>
+        { gameWon
+            ? <GameMessage
+              message='Well done, Jim'
+              className='bg-black green win' />
+            : null }
+
+        { gameLost
+            ? <GameMessage
+              message='You have failed Jim'
+              className='yellow bg-black loss' />
+            : null }
       </div>
     )
   }
