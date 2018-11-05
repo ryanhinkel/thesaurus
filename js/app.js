@@ -49,7 +49,8 @@ export default class App extends PureComponent {
       return null
     }
 
-    const bad_words = getWords(words, their_spies, picked)
+    const not_my_spies = words.map((_, i) => i).filter(i => !my_spies.includes(i))
+    const bad_words = getWords(words, not_my_spies, picked)
     const good_words = getWords(words, my_spies, picked)
     const really_bad_words = [words[assassin]]
 
