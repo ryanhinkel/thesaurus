@@ -19,6 +19,11 @@ spec:
         image: gcr.io/thesaurus-207318/thesaurus:TAG
         ports:
         - containerPort: 6543
+        env:
+        - name: DIMENSIONS
+          value: "300"
+        - name: VECTORS_FILE
+          value: "glove.6B/glove.6B.300d.txt"
 ---
 
 kind: Service
