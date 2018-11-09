@@ -1,14 +1,23 @@
+import os
+
 import numpy
 
 from nearpy import Engine
 from nearpy.hashes import RandomBinaryProjections
 
+
 array = numpy.array
 
-# Dimension of our vector space
-dimension = 300
 
-filename = 'glove.6B/glove.6B.{}d.small.txt'.format(dimension)
+try:
+    dimensions = int(os.getenv('DIMENSIONS', 300))
+except ValueError:
+    print('couldnt parse dimensions, using 300')
+    dimensions = 300
+
+filename = os.getenv(
+    'VECTORS_FILE', 'glove.6B/glove.6B.300d.small.txt')
+
 lines = open(filename).read().strip().split('\n')
 
 word_vectors = {}
@@ -22,7 +31,7 @@ for line in lines:
 rbp = RandomBinaryProjections('rbp', 2)
 
 # Create engine with pipeline configuration
-cosine = Engine(dimension, lshashes=[rbp])
+cosine = Engine(dimensions, lshashes=[rbp])
 
 for word, vec in word_vectors.items():
     cosine.store_vector(array(vec), word)
