@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method='GET'>
+  <span>&#8730;</span>
+  <input value='{{ a }}' id='a' name='a' type='text' />
+  <span> + </span>
+  <input value='{{ b }}' id='b' name='b' type='text' />
+  <input type='submit' value='=' />
+</form>
+
+{% if error %}
+  <div class='error'>{{ error }}</div>
+{% endif %}
+
+<ul class='results'>
+  {% for result in results %}
+    <li>
+      {{ result }}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

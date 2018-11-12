@@ -15,6 +15,7 @@ if __name__ == '__main__':
         config.add_route('nearest', '/')
         config.add_route('analogy', '/analogy')
         config.add_route('addition', '/addition')
+        config.add_route('average', '/average')
 
         # Serve our static files
         prevent_http_cache = config.get_settings().get(
