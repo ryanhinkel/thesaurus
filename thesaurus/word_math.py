@@ -1,46 +1,6 @@
-import os
+from numpy import array
 
-import numpy
-
-from nearpy import Engine
-from nearpy.hashes import RandomBinaryProjections
-
-
-array = numpy.array
-
-
-try:
-    dimensions = int(os.getenv('DIMENSIONS', 300))
-except ValueError:
-    print('couldnt parse dimensions, using 300')
-    dimensions = 300
-
-filename = os.getenv(
-    'VECTORS_FILE', 'glove.6B/glove.6B.300d.small.txt')
-
-lines = open(filename).read().strip().split('\n')
-
-word_vectors = {}
-for line in lines:
-    split_line = line.split()
-    word = split_line[0]
-    vec = [float(thing) for thing in split_line[1:]]
-    word_vectors[word] = vec
-
-# Create a random binary hash with 10 bits
-rbp = RandomBinaryProjections('rbp', 2)
-
-# Create engine with pipeline configuration
-cosine = Engine(dimensions, lshashes=[rbp])
-
-for word, vec in word_vectors.items():
-    cosine.store_vector(array(vec), word)
-
-print('ready')
-
-
-def query(array):
-    return [res[1] for res in cosine.neighbours(array)]
+from thesaurus.word_vectors import query, word_vectors
 
 
 def analogy(a, b, c):
@@ -60,6 +20,20 @@ def addition(a, b):
     return query(query_array)
 
 
+def subtraction(a, b):
+    query_array = (
+        array(word_vectors[a]) -
+        array(word_vectors[b])
+    )
+    return query(query_array)
+
+
 def nearest(word):
     query_array = array(word_vectors[word])
     return query(query_array)
+
+
+def average(words):
+    vectors = [array(word_vectors[word]) for word in words]
+    print(vectors)
+    return query(sum(vectors) / len(vectors))
