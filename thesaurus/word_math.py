@@ -35,5 +35,4 @@ def nearest(word):
 
 def average(words):
     vectors = [array(word_vectors[word]) for word in words]
-    print(vectors)
     return query(sum(vectors) / len(vectors))

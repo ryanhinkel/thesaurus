@@ -8,15 +8,13 @@ from thesaurus import word_math
     renderer='addition.html',
 )
 def addition(request):
-    a = request.GET.get('a')
-    b = request.GET.get('b')
+    a = request.GET.get('a', 'food')
+    b = request.GET.get('b', 'drink')
     error = None
 
     try:
         results = word_math.addition(a, b)
     except KeyError:
-        a = 'nothing'
-        b = 'something'
         results = []
         error = 'Some words were not found in the thesaurus'
 

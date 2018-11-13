@@ -8,13 +8,12 @@ from thesaurus import word_math
     renderer='nearest.html',
 )
 def nearest(request):
-    word = request.GET.get('word')
+    word = request.GET.get('word', 'thought')
     error = None
 
     try:
         results = word_math.nearest(word)
     except KeyError:
-        word = 'nothing'
         results = []
         error = 'The word was not found in the thesaurus'
 
