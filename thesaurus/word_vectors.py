@@ -4,6 +4,8 @@ from numpy import array
 
 from nearpy import Engine
 from nearpy.hashes import RandomBinaryProjections
+from nearpy.distances import ManhattanDistance
+from nearpy.filters import NearestFilter
 
 
 try:
@@ -15,23 +17,28 @@ except ValueError:
 filename = os.getenv(
     'VECTORS_FILE', 'glove.6B/glove.6B.300d.small.txt')
 
+print('loading vectors')
+
 lines = open(filename).read().strip().split('\n')
 
 word_vectors = {}
 for line in lines:
     split_line = line.split()
     word = split_line[0]
-    vec = [float(thing) for thing in split_line[1:]]
+    vec = array([float(thing) for thing in split_line[1:]])
     word_vectors[word] = vec
 
-# Create a random binary hash with 10 bits
-rbp = RandomBinaryProjections('rbp', 2)
+print('starting engine')
 
-# Create engine with pipeline configuration
-nearest = Engine(dimensions, lshashes=[rbp])
+nearest = Engine(
+    dimensions,
+    distance=ManhattanDistance(),
+    vector_filters=[NearestFilter(20)],
+    lshashes=[RandomBinaryProjections('rbp', 2)]
+)
 
 for word, vec in word_vectors.items():
-    nearest.store_vector(array(vec), word)
+    nearest.store_vector(vec, word)
 
 print('ready')
 
