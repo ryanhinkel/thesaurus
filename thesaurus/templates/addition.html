@@ -16,10 +16,6 @@
 <ul class='results'>
   {% for result in results %}
     <li>
-      <span class='swap-word-buttons'>
-        <a href='/addition?a={{ result }}&b={{ b }}'>A</a>
-        <a href='/addition?a={{ a }}&b={{ result }}'>B</a>
-      </span>
       {{ result }}
     </li>
   {% endfor %}
