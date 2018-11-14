@@ -2,10 +2,13 @@ from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 
 if __name__ == '__main__':
-    with Configurator() as config:
-        # does this work?
-        config.reload_templates = True
+    # does this work? YEEESSSSSS
+    settings = {
+        'pyramid.reload_assets': True,
+        'pyramid.reload_templates': True,
+    }
 
+    with Configurator(settings=settings) as config:
         config.include('pyramid_debugtoolbar')
 
         config.include('pyramid_jinja2')
