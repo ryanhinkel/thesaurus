@@ -8,11 +8,15 @@
     <meta name="availableLanguages" content="en">
 
     <title>{% block title %}{% endblock %}{% if self.title() %} · {% endif %}{{ request.registry.settings['site.name'] }}</title>
-    <meta name="description" content="{% block description %}{{ _("ColorReader Admin App") }}{% endblock %}">
+    <meta name="description" content="{% block description %}{% endblock %}">
 
     <link rel="stylesheet" href="{{ request.static_path('thesaurus:static/index.css') }}">
   </head>
-  <body className='w-100 h-100'>
+  <body className='w-100 h-100 sans-serif'>
+
+    {% block top_bar %}
+      {% include 'navigation.html' %}
+    {% endblock %}
 
     {% block content %}{% endblock %}
 

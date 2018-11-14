@@ -1,26 +1,63 @@
 @import './node_modules/tachyons-sass/tachyons.scss';
 
-#pDebug a#pShowToolBarButton {
-  display:none !important;
-}
-
 html,
 body {
   height: 100%;
 }
 
 body {
-  margin: 0;
-  font-size: 1em;
   font-family: sans-serif;
-
 }
 
 a,
 a:visited {
-  text-decoration: none;
-  color: #2f5ce2;
+  color: $blue;
 }
+
+nav {
+  font-weight: bold;
+  margin: $spacing-small;
+  font-size: 1rem;
+}
+
+nav a,
+nav a:visited {
+  display: inline-block;
+  color: $red;
+  padding: $spacing-small $spacing-medium;
+  border: 1px solid $red;
+}
+
+input {
+  font-size: 1rem;
+  padding: .5rem;
+}
+
+form {
+  margin: $spacing-large $spacing-small;
+}
+
+.error {
+  margin: $spacing-small;
+  margin: 1em 0;
+  color: #dd133f;
+}
+
+ul.results {
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+ul.results li {
+  display: inline-block;
+  margin: $spacing-small;
+}
+
+#pDebug a#pShowToolBarButton {
+  display:none !important;
+}
+
 
 .map-background {
   background-image: url('../art/map_background.png');
