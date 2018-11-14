@@ -12,9 +12,9 @@ const styles = {
 const content = {
   unknown: word => word,
   ally: word => "Communication Secured",
-  ally: word => <span className='f4'>Communication Secured</span>,
-  enemy: word => <span><span>⚠</span><br /><span className='f4'>SECURITY BREACH</span></span>,
-  assassin: word => <span><span>⚠</span><br /><span className='f4'>CONNECTION LOST</span></span>,
+  ally: word => <span>Communication Secured</span>,
+  enemy: word => <span><span>⚠</span><br /><span>SECURITY BREACH</span></span>,
+  assassin: word => <span><span>⚠</span><br /><span>CONNECTION LOST</span></span>,
   civilian: word =>  `${word}?`,
 }
 
@@ -49,7 +49,7 @@ export default class Board extends PureComponent {
 
     const rows = splitEvery(5, words)
     return (
-      <div className='map-background courier pa1 ba--white-20 f3 pa2 ma1 ba bw2 b--green'>
+      <div className='map-background courier ba--white-20 f5 pa2 ma1 ba bw2 b--green'>
         { rows.map((row) => {
           return (
             <div key={row.toString()}>
@@ -63,7 +63,7 @@ export default class Board extends PureComponent {
                     key={word}
                     className={`dib w-20 v-top`}
                   >
-                    <div className={`card ba bw2 ph2 pt4 h4 tc ${ styles } ma1`}>
+                    <div className={`card ba bw2 ph2 pt3 h3 tc ${ styles } ma1`}>
                       { content }
                     </div>
                   </div>
