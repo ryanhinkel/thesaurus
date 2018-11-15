@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react'
 import { splitEvery } from 'ramda'
 
 const styles = {
-  unknown: 'unknown b--green green',
-  ally: 'ally bg-dark-green green',
-  enemy: 'enemy bg-dark-gray yellow',
-  assassin: 'assassin bg-yellow',
-  civilian: 'civilian b--black',
+  unknown: 'unknown b--green green pt3',
+  ally: 'ally bg-dark-green green pt1 f6',
+  enemy: 'enemy bg-dark-gray yellow pt1 f6',
+  assassin: 'assassin bg-yellow pt2',
+  civilian: 'civilian b--black pt3',
 }
 
 const content = {
@@ -15,23 +15,17 @@ const content = {
     <span>
       <span>{word}</span>
       <br />
-      <span>Communication Secured</span>
+      <span className="f7">Communication Secured</span>
     </span>
   ),
-  enemy: () => (
+  enemy: word => (
     <span>
-      <span>⚠</span>
+      <span>{word}</span>
       <br />
-      <span>SECURITY BREACH</span>
+      <span className="f7">⚠ SECURITY BREACH</span>
     </span>
   ),
-  assassin: word => (
-    <span>
-      <span>⚠ {word}</span>
-      <br />
-      <span>CONNECTION LOST</span>
-    </span>
-  ),
+  assassin: () => <span>⚠ CONNECTION LOST</span>,
   civilian: word => `${word}?`,
 }
 
@@ -46,7 +40,7 @@ export class BoardWord extends PureComponent {
 
     return (
       <div onClick={this.onClick} className={`dib w-20 v-top`}>
-        <div className={`card ba bw2 ph2 pt3 h3 tc ${styles} ma1`}>
+        <div className={`card ba bw2 ph2 h3 tc ${styles} ma1`}>
           {children}
         </div>
       </div>
