@@ -3,26 +3,12 @@ import { map } from 'ramda'
 import { post } from 'axios'
 
 import Board from './board'
+import Clue from './clue'
+import GameMessage from './game_message'
 
 const getWords = (words, indices, excludeWords) => {
   const excludeFilter = n => !excludeWords.includes(words[n])
   return map(index => words[index], indices.filter(excludeFilter))
-}
-
-class GameMessage extends PureComponent {
-  render() {
-    const { message, className } = this.props
-    const layoutStyles = 'absolute top-2 left-2 right-2 bottom-2'
-    const fontStyles = 'courier f1 tc '
-
-    return (
-      <div
-        className={`game-message pa2 ${layoutStyles} ${fontStyles} ${className}`}
-      >
-        <div className={`ba bw2 h-100 w-100 pa6 ${className}`}>{message}</div>
-      </div>
-    )
-  }
 }
 
 export default class App extends PureComponent {
@@ -110,13 +96,7 @@ export default class App extends PureComponent {
     return (
       <div className="bg-near-black h-100 w-100 pa1">
         <Board picked={picked} pickWord={this.pickWord} {...data} />
-        <div className="ma4 tc f2 courier green">
-          {clue ? (
-            <span>
-              Clue: {clue} for {closeTo}
-            </span>
-          ) : null}
-        </div>
+        <Clue clue={clue} closeTo={closeTo} />
         {gameWon ? (
           <GameMessage
             message="Well done, Jim"
