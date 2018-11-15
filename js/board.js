@@ -11,11 +11,47 @@ const styles = {
 
 const content = {
   unknown: word => word,
-  ally: word => "Communication Secured",
-  ally: word => <span>Communication Secured</span>,
-  enemy: word => <span><span>⚠</span><br /><span>SECURITY BREACH</span></span>,
-  assassin: word => <span><span>⚠</span><br /><span>CONNECTION LOST</span></span>,
-  civilian: word =>  `${word}?`,
+  ally: word => (
+    <span>
+      <span>{word}</span>
+      <br />
+      <span>Communication Secured</span>
+    </span>
+  ),
+  enemy: () => (
+    <span>
+      <span>⚠</span>
+      <br />
+      <span>SECURITY BREACH</span>
+    </span>
+  ),
+  assassin: word => (
+    <span>
+      <span>⚠ {word}</span>
+      <br />
+      <span>CONNECTION LOST</span>
+    </span>
+  ),
+  civilian: word => `${word}?`,
+}
+
+export class BoardWord extends PureComponent {
+  onClick = () => {
+    const { onClick, word } = this.props
+    onClick(word)
+  }
+
+  render() {
+    const { styles, children } = this.props
+
+    return (
+      <div onClick={this.onClick} className={`dib w-20 v-top`}>
+        <div className={`card ba bw2 ph2 pt3 h3 tc ${styles} ma1`}>
+          {children}
+        </div>
+      </div>
+    )
+  }
 }
 
 export default class Board extends PureComponent {
@@ -36,42 +72,36 @@ export default class Board extends PureComponent {
     }
   }
 
-  getCardStyles = (team) => {
-      return styles[team]
+  getCardStyles = team => {
+    return styles[team]
   }
 
   getCardContent = (word, team) => {
     return content[team](word)
   }
 
-  render () {
+  render() {
     const { pickWord, words } = this.props
-
     const rows = splitEvery(5, words)
+
     return (
-      <div className='map-background courier ba--white-20 f5 pa2 ma1 ba bw2 b--green'>
-        { rows.map((row) => {
+      <div className="map-background courier ba--white-20 f5 pa2 ma1 ba bw2 b--green">
+        {rows.map(row => {
           return (
             <div key={row.toString()}>
-              { row.map((word) => {
+              {row.map(word => {
                 const team = this.getCardTeam(word)
-                const styles = this.getCardStyles(team)
-                const content = this.getCardContent(word, team)
-                return (
-                  <div
-                    onClick={() => pickWord(word)}
-                    key={word}
-                    className={`dib w-20 v-top`}
-                  >
-                    <div className={`card ba bw2 ph2 pt3 h3 tc ${ styles } ma1`}>
-                      { content }
-                    </div>
-                  </div>
-                )
-              }) }
+                const props = {
+                  word,
+                  styles: this.getCardStyles(team),
+                  children: this.getCardContent(word, team),
+                  onClick: pickWord,
+                }
+                return <BoardWord key={word} {...props} />
+              })}
             </div>
           )
-        }) }
+        })}
       </div>
     )
   }

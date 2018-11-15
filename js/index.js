@@ -5,4 +5,4 @@ import App from './app.js'
 
 import '../sass/index.scss'
 
-render(<App data={data} />, document.getElementById('app'))
+render(<App data={data} />, document.getElementById('app')) // eslint-disable-line
