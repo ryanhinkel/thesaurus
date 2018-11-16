@@ -2,3 +2,6 @@ env
 thesaurus/static/
 .cache
 node_modules
+glove.6B/
+.env
+yarn-error.log
