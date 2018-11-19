@@ -26,7 +26,7 @@ spec:
           value: "glove.6B/glove.6B.300d.txt"
         resources:
           requests:
-            memory: "1500Mi"
+            memory: "2000Mi"
 ---
 
 kind: Service
