@@ -31,3 +31,6 @@ rollout:
 	kubectl rollout status deployment/thesaurus-deployment
 
 deploy: build push rollout
+
+serve:
+	ENV=development python app.py
