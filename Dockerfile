@@ -14,4 +14,4 @@ RUN apt-get update && \
 COPY . $HOME
 
 EXPOSE 6543
-CMD gunicorn thesaurus.wsgi:application -b 0.0.0.0:6543
+CMD gunicorn thesaurus.wsgi:application --bind=0.0.0.0:6543 --timeout 120
