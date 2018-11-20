@@ -19,6 +19,7 @@ credentials:
 	gcloud container clusters get-credentials --project=$(PROJECT) --zone=$(ZONE) $(CLUSTER)
 
 build:
+	yarn build
 	docker build -t $(IMAGE):latest -t $(IMAGE):$(TAG) .
 
 push:
