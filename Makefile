@@ -6,7 +6,7 @@ IMAGE?=gcr.io/$(PROJECT)/thesaurus
 
 cluster:
 	gcloud container clusters create $(CLUSTER) \
-		--machine-type n1-standard-1 \
+		--machine-type n1-highmem-2 \
 		--num-nodes 1 \
 		--enable-autoscaling \
 		--min-nodes 1 \
@@ -19,6 +19,7 @@ credentials:
 	gcloud container clusters get-credentials --project=$(PROJECT) --zone=$(ZONE) $(CLUSTER)
 
 build:
+	yarn build
 	docker build -t $(IMAGE):latest -t $(IMAGE):$(TAG) .
 
 push:
@@ -31,3 +32,6 @@ rollout:
 	kubectl rollout status deployment/thesaurus-deployment
 
 deploy: build push rollout
+
+serve:
+	ENV=development python app.py

@@ -4,3 +4,4 @@ NearPy
 pyramid
 pyramid_jinja2
 pyramid_debugtoolbar
+gunicorn
