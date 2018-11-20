@@ -3,15 +3,18 @@ import os
 from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 
+
+environment = os.getenv('ENV')
+
+
 def configure():
-# does this work? YEEESSSSSS
-    settings = {
-        'pyramid.reload_assets': True,
-        'pyramid.reload_templates': True,
-    }
+    settings = {}
+    if environment == 'development':
+        settings.setdefault("pyramid.reload_assets", True)
+        settings.setdefault("pyramid.reload_templates", True)
 
     with Configurator(settings=settings) as config:
-        if os.getenv('ENV') == 'development':
+        if environment == 'development':
             config.include('pyramid_debugtoolbar')
 
         config.include('pyramid_jinja2')
