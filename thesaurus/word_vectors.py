@@ -34,7 +34,7 @@ nearest = Engine(
     dimensions,
     distance=ManhattanDistance(),
     vector_filters=[NearestFilter(20)],
-    lshashes=[RandomBinaryProjections('rbp', 2)]
+    lshashes=[RandomBinaryProjections('rbp', 2, rand_seed=42)]
 )
 
 for word, vec in word_vectors.items():
