@@ -8,7 +8,7 @@ from nearpy.filters import NearestFilter
 from nearpy.hashes import RandomBinaryProjections
 from nearpy.storage.storage_redis import RedisStorage
 
-from thesaurus.config import dimensions, REDIS_HOST, REDIS_PORT, REDIS_DB
+from thesaurus.config import dimensions, REDIS_HOST, REDIS_PASSWORD, REDIS_PORT, REDIS_DB
 
 
 class CustomRedisStorage(RedisStorage):
@@ -37,7 +37,7 @@ class CustomRedisStorage(RedisStorage):
 
 
 # Create redis storage adapter
-redis_object = Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+redis_object = Redis(host=REDIS_HOST, password=REDIS_PASSWORD, port=REDIS_PORT, db=REDIS_DB)
 redis_storage = CustomRedisStorage(redis_object)
 
 # Get hash config from redis

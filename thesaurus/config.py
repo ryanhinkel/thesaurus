@@ -13,6 +13,7 @@ except ValueError:
 filename = os.getenv('VECTORS_FILE', 'glove.6B/glove.6B.300d.small.txt')
 
 REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 REDIS_PORT = os.getenv('REDIS_PORT', 6379)
 REDIS_DB = os.getenv('REDIS_DB', 0)
 
