@@ -5,6 +5,12 @@ from pyramid.config import Configurator
 
 
 environment = os.getenv('ENV')
+try:
+    dimensions = int(os.getenv('DIMENSIONS', 300))
+except ValueError:
+    print('couldnt parse dimensions, using 300')
+    dimensions = 300
+filename = os.getenv('VECTORS_FILE', 'glove.6B/glove.6B.300d.small.txt')
 
 
 def configure():

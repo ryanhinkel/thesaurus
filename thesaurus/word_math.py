@@ -1,6 +1,7 @@
 from numpy import array
 
-from thesaurus.word_vectors import query, word_vectors
+from thesaurus.engine import query
+from thesaurus.word_vectors import word_vectors
 
 
 def analogy(a, b, c):
