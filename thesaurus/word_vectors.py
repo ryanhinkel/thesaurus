@@ -26,7 +26,7 @@ def load_vectors():
 
 
 def get_word(word):
-    return WORD_VECTORS[word]
+    return engine.storage.get_word(word)
 
 
 if __name__ == '__main__':

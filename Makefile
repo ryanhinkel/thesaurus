@@ -35,3 +35,6 @@ deploy: build push rollout
 
 serve:
 	ENV=development python app.py
+
+load-vectors:
+	python thesaurus/word_vectors.py
