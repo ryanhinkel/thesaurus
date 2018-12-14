@@ -1,6 +1,6 @@
 from numpy import array, linalg
 
-from thesaurus.word_vectors import word_vectors
+from thesaurus.word_vectors import get_word
 from thesaurus.word_math import average
 
 
@@ -9,8 +9,8 @@ def delta(word1, word2):
     This function returns the distance between two vectors
     '''
     return linalg.norm(
-        array(word_vectors[word1]) -
-        array(word_vectors[word2])
+        array(get_word(word1)) -
+        array(get_word(word2))
     )
 
 

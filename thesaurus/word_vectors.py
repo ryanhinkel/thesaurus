@@ -6,20 +6,28 @@ from thesaurus.config import filename
 from thesaurus.engine import engine
 
 
-print('loading vectors from {}'.format(filename))
+WORD_VECTORS = {}
 
-lines = open(filename).read().strip().split('\n')
+def load_vectors():
+    print('loading vectors from {}'.format(filename))
 
-word_vectors = {}
-for line in lines:
-    split_line = line.split()
-    word = split_line[0]
-    vec = array([float(thing) for thing in split_line[1:]])
-    word_vectors[word] = vec
+    lines = open(filename).read().strip().split('\n')
 
-print('loading vectors into engine')
+    for line in lines:
+        split_line = line.split()
+        word = split_line[0]
+        vec = array([float(thing) for thing in split_line[1:]])
+        WORD_VECTORS[word] = vec
 
-for word, vec in word_vectors.items():
-    engine.store_vector(vec, word)
+    print('loading vectors into engine')
 
-print('ready')
+    for word, vec in WORD_VECTORS.items():
+        engine.store_vector(vec, word)
+
+
+def get_word(word):
+    return WORD_VECTORS[word]
+
+
+if __name__ == '__main__':
+    load_vectors()
