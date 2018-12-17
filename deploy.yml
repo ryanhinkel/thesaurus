@@ -5,7 +5,7 @@ metadata:
   labels:
     app: thesaurus
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: thesaurus
@@ -33,7 +33,7 @@ spec:
               key: redis-password
         resources:
           requests:
-            memory: "2000Mi"
+            memory: "500Mi"
 ---
 
 kind: Service
