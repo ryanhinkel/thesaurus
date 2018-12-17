@@ -18,8 +18,11 @@ def load_vectors(debug=False):
 
         split_line = line.split()
         word = split_line[0]
-        vec = array([float(thing) for thing in split_line[1:]])
-        engine.store_vector(vec, word)
+        try:
+            engine.storage.get_word(word)
+        except ValueError:
+            vec = array([float(thing) for thing in split_line[1:]])
+            engine.store_vector(vec, word)
 
 
 def get_word(word):
