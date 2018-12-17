@@ -24,6 +24,13 @@ spec:
           value: "300"
         - name: VECTORS_FILE
           value: "glove.6B/glove.6B.300d.txt"
+        - name: REDIS_HOST
+          value: "rolling-wolf-redis-master"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rolling-wolf-redis
+              key: redis-password
         resources:
           requests:
             memory: "2000Mi"
